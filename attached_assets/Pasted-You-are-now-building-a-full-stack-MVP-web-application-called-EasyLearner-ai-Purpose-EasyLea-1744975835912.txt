@@ -1,0 +1,80 @@
+You are now building a full-stack MVP web application called EasyLearner.ai.
+
+🎯 Purpose:
+EasyLearner is an AI-based web tool for students and knowledge seekers. It allows users to upload a PDF document and receive:
+1. A summarized version of the document
+2. An answer to an optional custom question based on the document
+
+👥 Target audience: Students, researchers, lifelong learners  
+🌍 Multilingual support is required (starting with Hungarian + English)
+
+---
+
+🧠 Core functionality:
+- Upload a PDF (via drag-and-drop or file input)
+- Optionally enter a question ("What is this about?", "What are the key points?", etc.)
+- The system extracts the PDF text
+- Sends the question + content to the OpenAI API (GPT-4o)
+- Returns a concise summary or answer
+
+---
+
+📐 MVP structure (Next.js + TypeScript):
+
+- `/src/components`
+  - `UploadForm.tsx` – file upload, question input, submit button
+  - `SummaryResult.tsx` – shows the response
+  - `Loader.tsx` – optional animation during response
+
+- `/src/app/api/summarize/route.ts` (App Router format)
+  - Accepts PDF + question
+  - Uses `pdf-parse` to extract text
+  - Uses `callOpenAI` to send prompt to GPT
+  - Returns summarized/answered text in JSON
+
+- `/src/utils`
+  - `extractTextFromPDF.ts`
+  - `generatePrompt.ts`
+  - `callOpenAI.ts`
+
+---
+
+🎨 UX/UI guidelines:
+
+- Clean, modern layout with centered content
+- Use Tailwind CSS for styling
+- Use a soft gradient background or SVG illustration (tech/education vibe)
+- Friendly, youthful fonts (Inter, Open Sans)
+- Rounded corners, card layout, nice shadows
+- Responsive design for mobile
+- CTA-style buttons with hover effects
+- Success message or loader while waiting
+- Use icons (heroicons, Lucide) to indicate upload/question
+
+---
+
+🤖 AI prompt tuning (generatePrompt.ts):
+Make the AI responses **concise, clear, and readable**.
+
+Include the following rules in the system/user prompt:
+
+"Answer the user's question as clearly and concisely as possible.  
+Begin with a **one-sentence direct answer**, then provide short context if needed.  
+Format your response into **short paragraphs (max 3 lines)** or **bullet points**.  
+Avoid repeating the question."
+
+Also:
+- Use GPT-4o via OpenAI API
+- Set `max_tokens` around 400
+- Use temperature: 0.6–0.7 for natural tone
+
+---
+
+🎁 Bonus UX extras:
+- Add a “Copy summary” button with confirmation
+- Error message if the PDF cannot be parsed
+- Fallback: Use a demo PDF if no file is uploaded
+
+---
+
+Now please generate the full working structure using this specification. Start with initializing the project and building each component and route step by step.
